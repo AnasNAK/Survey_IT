@@ -2,8 +2,9 @@ package org.NAK.surveyit.service.implementations;
 
 import org.NAK.surveyit.dto.owner.OwnerCreateDTO;
 import org.NAK.surveyit.dto.owner.OwnerResponseDTO;
-import org.NAK.surveyit.dto.owner.OwnerUpdatDTO;
+import org.NAK.surveyit.dto.owner.OwnerUpdateDTO;
 import org.NAK.surveyit.entity.Owner;
+import org.NAK.surveyit.exception.EntityNotFoundException;
 import org.NAK.surveyit.mapper.OwnerMapper;
 import org.NAK.surveyit.repository.OwnerRepository;
 import org.NAK.surveyit.service.contracts.OwnerService;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,7 +41,7 @@ public class OwnerServiceImpl implements OwnerService {
 
         return ownerRepository.findById(id)
                 .map(ownerMapper::toResponseDTO)
-                .orElse(null);
+                .orElseThrow(() -> new EntityNotFoundException("Owner",id));
 
     }
 
@@ -54,12 +54,31 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public OwnerResponseDTO updateOwner(OwnerUpdatDTO ownerUpdatDTO , long id) {
-        return null;
+    public OwnerResponseDTO updateOwner(OwnerUpdateDTO ownerUpdateDTO , long id) {
+
+        Owner existingOwner = ownerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Owner" ,id));
+
+        Owner updatedOwner = ownerMapper.toEntity(ownerUpdateDTO);
+        updatedOwner.setId(existingOwner.getId());
+        Owner savedOwner = ownerRepository.save(updatedOwner);
+        return  ownerMapper.toResponseDTO(savedOwner);
+
+
     }
 
     @Override
     public void deleteOwner(long id) {
+        if (!ownerRepository.existsById(id)) {
+            throw new EntityNotFoundException("Owner" ,id);
+        }
 
+        ownerRepository.deleteById(id);
+    }
+
+    @Override
+    public OwnerResponseDTO findByName(String name){
+        Owner owner = ownerRepository.findByName(name).orElseThrow(() -> new EntityNotFoundException("Owner" ,name));
+        return ownerMapper.toResponseDTO(owner);
     }
 }
