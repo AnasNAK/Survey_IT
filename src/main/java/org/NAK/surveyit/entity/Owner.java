@@ -19,6 +19,6 @@ public class Owner {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "owner" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "owner" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private List<Survey> surveys;
 }

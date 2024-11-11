@@ -4,18 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.NAK.surveyit.dto.survey.SurveyResponseForOwner;
-
-import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OwnerResponseDTO {
-
+public class OwnerResponseForSurvey {
     private Long id;
     private String name;
-    private List<SurveyResponseForOwner> surveys;
 
 }

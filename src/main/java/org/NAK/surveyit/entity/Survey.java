@@ -19,7 +19,8 @@ public class Survey {
     private String title;
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
     private Owner owner;
 
     @OneToMany(mappedBy = "survey" , cascade = CascadeType.ALL)

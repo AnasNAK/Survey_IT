@@ -35,7 +35,7 @@ public class OwnerController {
             @PathVariable("ownerId")
             @Exist(message = "Owner with ID ${validatedValue} does not exist", entity = Owner.class, repository = OwnerRepository.class) Long id) {
 
-        OwnerResponseDTO owner = ownerService.findOwnerById(id); // This line will only run if validation passes
+        OwnerResponseDTO owner = ownerService.findOwnerById(id);
         return ResponseEntity.ok(owner);
     }
 
@@ -54,7 +54,7 @@ public class OwnerController {
              @Valid @RequestBody OwnerUpdateDTO ownerUpdateDTO){
 
         OwnerResponseDTO updatedOwner = ownerService.updateOwner(ownerUpdateDTO,id);
-        return  ResponseEntity.ok(updatedOwner);
+        return ResponseEntity.ok(updatedOwner);
     }
     @DeleteMapping("/{ownerId}")
             public  ResponseEntity<Void> deleteOwner(@PathVariable("ownerId")
