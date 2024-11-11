@@ -1,6 +1,6 @@
 package org.NAK.surveyit.enums;
 
 public enum QuestionType {
-    SINGLECHOICE,
-    MULTIPLECHOICE
+    SINGLE_CHOICE,
+    MULTIPLE_CHOICE
 }

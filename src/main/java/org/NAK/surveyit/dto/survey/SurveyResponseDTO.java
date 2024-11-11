@@ -3,8 +3,7 @@ package org.NAK.surveyit.dto.survey;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.NAK.surveyit.dto.owner.OwnerResponseForSurvey;
-import org.NAK.surveyit.entity.Owner;
+import org.NAK.surveyit.dto.owner.OwnerResponseSharedSurvey;
 
 @Data
 @AllArgsConstructor
@@ -13,5 +12,5 @@ public class SurveyResponseDTO {
     private Long id;
     private String title;
     private String description;
-    private OwnerResponseForSurvey owner;
+    private OwnerResponseSharedSurvey owner;
 }

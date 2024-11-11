@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SurveyResponseForOwner {
+public class SurveyResponseSharedDTO {
     private Long id;
     private String title;
     private String description;

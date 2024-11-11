@@ -23,7 +23,7 @@ public class SurveyEdition {
     private LocalDate endDate;
     private Integer year;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Survey survey;
 
     @OneToMany(mappedBy = "surveyEdition" , cascade = CascadeType.ALL)

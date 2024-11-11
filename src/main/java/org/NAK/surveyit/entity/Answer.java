@@ -1,6 +1,7 @@
 package org.NAK.surveyit.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,11 +13,14 @@ import lombok.NoArgsConstructor;
 @Table(name = "answer")
 public class Answer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String text;
-    private int selectionCount;
 
-    @ManyToOne
+    @NotBlank
+    private String text;
+
+    private Integer selectionCount;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Question question;
 }

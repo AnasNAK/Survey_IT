@@ -1,10 +1,12 @@
 package org.NAK.surveyit.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.NAK.surveyit.enums.QuestionType;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.List;
 
@@ -16,18 +18,24 @@ import java.util.List;
 
 public class Question {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String text;
-    private int answerCount;
 
-    @Enumerated(EnumType.STRING)
+    @Column(name = "questionType")
     private QuestionType questionType;
 
-    @ManyToOne
+    @NotBlank
+    @Column(name = "text")
+    private String text;
+
+    @ColumnDefault("0")
+    private Integer answerCount = 0;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Subject subject;
 
-    @OneToMany(mappedBy = "question")
-    private List<Answer> answers;
+    @OneToMany(mappedBy = "question" , fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+    private List<Answer> answerList;
+
 
 }

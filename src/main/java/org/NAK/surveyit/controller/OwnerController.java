@@ -18,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/owners")
 public class OwnerController {
+
     private final OwnerService ownerService;
 
     @Autowired

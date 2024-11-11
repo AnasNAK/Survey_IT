@@ -1,6 +1,7 @@
 package org.NAK.surveyit.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,19 +20,20 @@ public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @NotBlank
+    @Column(name = "title")
     private String title;
 
-    @OneToMany(mappedBy = "parentSubject" ,cascade = CascadeType.ALL)
-    private Set<Subject> subSubjects = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    @JoinColumn(name = "parent_id")
+    private Subject parent;
 
-    @ManyToOne
-    private Subject parentSubject;
 
     @ManyToOne
     private SurveyEdition surveyEdition;
 
     @OneToMany(mappedBy = "subject" ,cascade = CascadeType.ALL)
-    private List<Question> questions ;
+    private List<Question> questionList ;
 
 
 }

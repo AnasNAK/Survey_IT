@@ -23,7 +23,7 @@ public class Survey {
     @JoinColumn(name = "owner_id")
     private Owner owner;
 
-    @OneToMany(mappedBy = "survey" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "survey" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private List<SurveyEdition> surveyEditions;
 
 
